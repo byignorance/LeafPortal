@@ -1,7 +1,7 @@
 # StudioLeafPortal Refactor / Security Priority Report
 
 Date: 2026-03-08  
-Target app folder: `/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal`
+Target app folder: `/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal`
 
 ## Scope
 
@@ -49,7 +49,7 @@ Impact:
 
 Evidence:
 
-- [`firestore.rules`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/firestore.rules)
+- [`firestore.rules`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/firestore.rules)
 - `projectArchives` update rule only allows a fixed set of changed keys
 - current app model now uses additional fields such as:
   - `projectCode`
@@ -80,8 +80,8 @@ Impact:
 
 Evidence:
 
-- [`PortalAuthManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Shared/Auth/PortalAuthManager.swift)
-- [`firestore.rules`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/firestore.rules)
+- [`PortalAuthManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Shared/Auth/PortalAuthManager.swift)
+- [`firestore.rules`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/firestore.rules)
 
 Observed issue:
 
@@ -113,10 +113,10 @@ Impact:
 
 Evidence:
 
-- [`PortalProjectChatManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Shared/Chat/PortalProjectChatManager.swift)
+- [`PortalProjectChatManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Shared/Chat/PortalProjectChatManager.swift)
 - current size: `2694` lines
 - earlier performance reviews already identified overlapping listener topology and read/write pressure
-- related review: [`PERFORMANCE_COST_REVIEW_2026-03-07.md`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/PERFORMANCE_COST_REVIEW_2026-03-07.md)
+- related review: [`PERFORMANCE_COST_REVIEW_2026-03-07.md`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/PERFORMANCE_COST_REVIEW_2026-03-07.md)
 
 Why this matters:
 
@@ -145,8 +145,8 @@ Impact:
 
 Evidence:
 
-- [`PortalAuthManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Shared/Auth/PortalAuthManager.swift)
-- [`firestore.rules`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/firestore.rules)
+- [`PortalAuthManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Shared/Auth/PortalAuthManager.swift)
+- [`firestore.rules`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/firestore.rules)
 - current admin identity is tied to `hello@studioleaf.kr`
 
 Why this matters:
@@ -175,7 +175,7 @@ Impact:
 
 Evidence:
 
-- [`PortalAuthManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Shared/Auth/PortalAuthManager.swift)
+- [`PortalAuthManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Shared/Auth/PortalAuthManager.swift)
 - `try? await directoryReference.setData(..., merge: true)`
 
 Why this matters:
@@ -197,7 +197,7 @@ Impact:
 
 Evidence:
 
-- [`PortalRootView.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Portal/PortalRootView.swift)
+- [`PortalRootView.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Portal/PortalRootView.swift)
 - current size: `1597` lines
 
 Why this matters:
@@ -222,7 +222,7 @@ Impact:
 
 Evidence:
 
-- [`NotionHubAdaptiveService.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Features/NotionHub/NotionHubAdaptiveService.swift)
+- [`NotionHubAdaptiveService.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Features/NotionHub/NotionHubAdaptiveService.swift)
 - adaptive service can prefer personal OAuth token but still falls back to internal secret-backed configuration when present
 
 Why this matters:
@@ -280,8 +280,8 @@ Current state:
 
 Relevant design docs:
 
-- [`PROJECT_HUB_UPLOAD_DATA_MODEL_DESIGN_2026-03-08.md`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/PROJECT_HUB_UPLOAD_DATA_MODEL_DESIGN_2026-03-08.md)
-- [`PROJECT_HUB_UPLOAD_UI_FLOW_DESIGN_2026-03-08.md`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/PROJECT_HUB_UPLOAD_UI_FLOW_DESIGN_2026-03-08.md)
+- [`PROJECT_HUB_UPLOAD_DATA_MODEL_DESIGN_2026-03-08.md`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/PROJECT_HUB_UPLOAD_DATA_MODEL_DESIGN_2026-03-08.md)
+- [`PROJECT_HUB_UPLOAD_UI_FLOW_DESIGN_2026-03-08.md`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/PROJECT_HUB_UPLOAD_UI_FLOW_DESIGN_2026-03-08.md)
 
 Recommendation:
 
@@ -300,7 +300,7 @@ Impact:
 
 Evidence:
 
-- [`PortalSymbolCatalog.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Features/IconManagement/PortalSymbolCatalog.swift)
+- [`PortalSymbolCatalog.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Features/IconManagement/PortalSymbolCatalog.swift)
 - current size: `7909` lines
 
 Recommendation:
@@ -314,10 +314,10 @@ Recommendation:
 
 Current notable large files:
 
-- [`PortalProjectChatManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Shared/Chat/PortalProjectChatManager.swift): `2694`
-- [`PortalSymbolCatalog.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Features/IconManagement/PortalSymbolCatalog.swift): `7909`
-- [`PortalRootView.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Portal/PortalRootView.swift): `1597`
-- [`NotionHubService.swift`](/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/StudioLeafPortal/Features/NotionHub/NotionHubService.swift): `1057`
+- [`PortalProjectChatManager.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Shared/Chat/PortalProjectChatManager.swift): `2694`
+- [`PortalSymbolCatalog.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Features/IconManagement/PortalSymbolCatalog.swift): `7909`
+- [`PortalRootView.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Portal/PortalRootView.swift): `1597`
+- [`NotionHubService.swift`](/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/StudioLeafPortal/Features/NotionHub/NotionHubService.swift): `1057`
 
 Practical order:
 

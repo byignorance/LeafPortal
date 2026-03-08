@@ -1672,7 +1672,7 @@ final class PortalProjectArchiveManager: ObservableObject {
 }
 
 private final class ArchiveFileUploadClient: NSObject, URLSessionTaskDelegate {
-    private var progressHandlers: [Int: @Sendable (Int64, Int64, Int64) -> Void] = [:]
+    private var progressHandlers: [String: @Sendable (Int64, Int64, Int64) -> Void] = [:]
 
     func upload(
         request: URLRequest,
@@ -1684,10 +1684,10 @@ private final class ArchiveFileUploadClient: NSObject, URLSessionTaskDelegate {
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
 
         return try await withCheckedThrowingContinuation { continuation in
-            var taskIdentifier = 0
+            let uploadID = UUID().uuidString
             let task = session.uploadTask(with: request, fromFile: fileURL) { [weak self] data, response, error in
                 defer { session.finishTasksAndInvalidate() }
-                self?.progressHandlers[taskIdentifier] = nil
+                self?.progressHandlers[uploadID] = nil
 
                 if let error {
                     continuation.resume(throwing: error)
@@ -1702,8 +1702,8 @@ private final class ArchiveFileUploadClient: NSObject, URLSessionTaskDelegate {
                 continuation.resume(returning: (data, response))
             }
 
-            taskIdentifier = task.taskIdentifier
-            progressHandlers[taskIdentifier] = progress
+            task.taskDescription = uploadID
+            progressHandlers[uploadID] = progress
             task.resume()
         }
     }
@@ -1715,7 +1715,8 @@ private final class ArchiveFileUploadClient: NSObject, URLSessionTaskDelegate {
         totalBytesSent: Int64,
         totalBytesExpectedToSend: Int64
     ) {
-        progressHandlers[task.taskIdentifier]?(bytesSent, totalBytesSent, totalBytesExpectedToSend)
+        guard let uploadID = task.taskDescription else { return }
+        progressHandlers[uploadID]?(bytesSent, totalBytesSent, totalBytesExpectedToSend)
     }
 }
 

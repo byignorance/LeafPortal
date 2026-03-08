@@ -83,7 +83,7 @@ Do not create a new folder name if an existing canonical feature name already re
 
 ## Design Reference Rule
 
-- UI 수정이나 새 화면 개발 전에는 반드시 `/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal/design_guideline.md`를 먼저 확인한다.
+- UI 수정이나 새 화면 개발 전에는 반드시 `/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal/design_guideline.md`를 먼저 확인한다.
 - 구조 정책은 `DEVELOPMENT_GUIDELINES.md`, 화면 정책은 `design_guideline.md`를 기준으로 함께 적용한다.
 
 ## File Length Policy

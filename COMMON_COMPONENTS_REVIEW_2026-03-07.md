@@ -1,7 +1,7 @@
 # studioLEAF Portal 공통 컴포넌트 / 모달 구조 점검
 
 작성일: 2026-03-07
-대상 폴더: `/Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal`
+대상 폴더: `/Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal`
 
 ## 결론
 

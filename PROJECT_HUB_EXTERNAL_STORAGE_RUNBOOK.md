@@ -115,7 +115,7 @@ https://drive.google.com/drive/u/1/folders/1zwDP4DrSaiQGJYLcc7xK3ORg_e_eMDlT
 터미널 위치:
 
 ```bash
-cd /Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal
+cd /Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal
 ```
 
 저장:
@@ -235,7 +235,7 @@ curl https://api.dropbox.com/oauth2/token \
 터미널 위치:
 
 ```bash
-cd /Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal
+cd /Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal
 ```
 
 저장:
@@ -278,7 +278,7 @@ firebase functions:secrets:set DROPBOX_REFRESH_TOKEN --project studioleafportal
 Functions secret 변경 후에는 Functions 재배포가 필요하다.
 
 ```bash
-cd /Users/sangjoonpark/0_local/main_work_macbook/mac_apps/StudioLeafPortal
+cd /Users/sangjoonpark/0_local/main_work_macbook/0000_web_system/02_macOS/11_StudioLeafPortal
 firebase deploy --only functions
 ```
 
