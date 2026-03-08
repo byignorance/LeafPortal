@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudioLeafPortal Notion 연결 중</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f6f2;
+      --card: #ffffff;
+      --text: #1d251f;
+      --muted: #667066;
+      --line: #d9dfd5;
+      --accent: #29543a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background: linear-gradient(180deg, #eef2eb 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    .card {
+      width: min(560px, 100%);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(16, 24, 18, 0.05);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 14px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>StudioLeafPortal로 돌아가는 중</h1>
+    <p>잠시 후 앱으로 자동 이동합니다. 자동으로 돌아가지 않으면 아래 버튼을 눌러 주세요.</p>
+    <a id="open-app" href="#">앱으로 돌아가기</a>
+  </main>
+
+  <script>
+    (function () {
+      var params = window.location.search || "";
+      var target = "studioleafportal-notion://oauth/notion" + params;
+      var link = document.getElementById("open-app");
+      if (link) {
+        link.href = target;
+      }
+      window.location.replace(target);
+    }());
+  </script>
+</body>
+</html>

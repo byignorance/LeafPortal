@@ -1,0 +1,299 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function bootstrapAdminEmail() {
+      return "hello@studioleaf.kr";
+    }
+
+    function userId() {
+      return request.auth.uid;
+    }
+
+    function isPortalAdmin() {
+      return signedIn()
+        && (
+          request.auth.token.portalAdmin == true
+          || authEmail() == bootstrapAdminEmail()
+          || (
+            exists(/databases/$(database)/documents/portalSettings/accessControl)
+            && (
+              (
+                get(/databases/$(database)/documents/portalSettings/accessControl).data.adminUIDs is list
+                && userId() in get(/databases/$(database)/documents/portalSettings/accessControl).data.adminUIDs
+              )
+              || (
+                get(/databases/$(database)/documents/portalSettings/accessControl).data.adminEmails is list
+                && authEmail() in get(/databases/$(database)/documents/portalSettings/accessControl).data.adminEmails
+              )
+            )
+          )
+        );
+    }
+
+    function authEmail() {
+      return signedIn() && request.auth.token.email is string
+        ? request.auth.token.email
+        : "";
+    }
+
+    function validDirectoryUserPayload(uid) {
+      return request.resource.data.uid == uid
+        && request.resource.data.email == authEmail()
+        && request.resource.data.isAdmin == isPortalAdmin();
+    }
+
+    function validDirectoryUserKeys() {
+      return request.resource.data.keys().hasOnly([
+        "uid",
+        "displayName",
+        "email",
+        "emailLowercased",
+        "photoURL",
+        "createdAt",
+        "updatedAt",
+        "lastSignInAt",
+        "isAdmin",
+        "memberState",
+        "adminNote",
+        "disabledAt"
+      ]);
+    }
+
+    function validMemberStateValue() {
+      return request.resource.data.memberState == null
+        || request.resource.data.memberState in ["active", "paused", "disabled"];
+    }
+
+    function hasDirectoryUser(uid) {
+      return exists(/databases/$(database)/documents/directoryUsers/$(uid));
+    }
+
+    function memberState(uid) {
+      return hasDirectoryUser(uid)
+        ? get(/databases/$(database)/documents/directoryUsers/$(uid)).data.memberState
+        : null;
+    }
+
+    function isActivePortalMember() {
+      return signedIn()
+        && hasDirectoryUser(userId())
+        && (memberState(userId()) == null || memberState(userId()) == "active");
+    }
+
+    function isProjectMember(projectId) {
+      return isActivePortalMember()
+        && userId() in get(/databases/$(database)/documents/projects/$(projectId)).data.memberIds;
+    }
+
+    function isProjectOwner(projectId) {
+      return isActivePortalMember()
+        && get(/databases/$(database)/documents/projects/$(projectId)).data.ownerId == userId();
+    }
+
+    function isRoomMember(projectId, roomId) {
+      return isActivePortalMember()
+        && userId() in get(/databases/$(database)/documents/projects/$(projectId)/chatRooms/$(roomId)).data.memberIds;
+    }
+
+    function isArchiveMember() {
+      return isActivePortalMember() && userId() in resource.data.memberIds;
+    }
+
+    match /users/{uid} {
+      allow read, write: if signedIn() && userId() == uid;
+
+      match /profile/{documentId} {
+        allow read, write: if signedIn() && userId() == uid;
+      }
+
+      match /settings/{documentId} {
+        allow read, write: if signedIn() && userId() == uid;
+      }
+
+      match /projectChatRoomReads/{documentId} {
+        allow read, write: if signedIn() && userId() == uid;
+      }
+    }
+
+    match /directoryUsers/{uid} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && userId() == uid
+        && validDirectoryUserKeys()
+        && validDirectoryUserPayload(uid)
+        && validMemberStateValue()
+        && (request.resource.data.memberState == null || request.resource.data.memberState == "active")
+        && (request.resource.data.adminNote == null || request.resource.data.adminNote == "")
+        && request.resource.data.disabledAt == null;
+      allow update: if (
+          signedIn()
+          && userId() == uid
+          && validDirectoryUserKeys()
+          && validDirectoryUserPayload(uid)
+          && validMemberStateValue()
+          && request.resource.data.diff(resource.data).changedKeys().hasOnly([
+            "displayName",
+            "email",
+            "emailLowercased",
+            "photoURL",
+            "updatedAt",
+            "lastSignInAt",
+            "isAdmin"
+          ])
+          && request.resource.data.uid == resource.data.uid
+          && request.resource.data.createdAt == resource.data.createdAt
+        ) || (
+          isPortalAdmin()
+          && validDirectoryUserKeys()
+          && validMemberStateValue()
+          && request.resource.data.diff(resource.data).changedKeys().hasOnly([
+            "memberState",
+            "adminNote",
+            "disabledAt",
+            "updatedAt"
+          ])
+          && request.resource.data.uid == resource.data.uid
+          && request.resource.data.displayName == resource.data.displayName
+          && request.resource.data.email == resource.data.email
+          && request.resource.data.emailLowercased == resource.data.emailLowercased
+          && request.resource.data.photoURL == resource.data.photoURL
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.lastSignInAt == resource.data.lastSignInAt
+          && request.resource.data.isAdmin == resource.data.isAdmin
+        );
+      allow delete: if false;
+    }
+
+    match /projects/{projectId} {
+      allow create: if isActivePortalMember()
+        && request.resource.data.ownerId == userId()
+        && request.resource.data.memberIds is list
+        && userId() in request.resource.data.memberIds;
+
+      allow read: if isActivePortalMember()
+        && userId() in resource.data.memberIds;
+
+      allow update: if (
+          isActivePortalMember()
+          && resource.data.ownerId == userId()
+        )
+        || (
+          isActivePortalMember()
+          && userId() in resource.data.memberIds
+          && request.resource.data.diff(resource.data).changedKeys().hasOnly(["updatedAt"])
+        );
+
+      allow delete: if isProjectOwner(projectId);
+
+      match /chatRooms/{roomId} {
+        allow read: if isProjectMember(projectId);
+
+        allow create: if isProjectMember(projectId)
+          && request.resource.data.projectId == projectId
+          && request.resource.data.memberIds is list
+          && userId() in request.resource.data.memberIds;
+
+        allow update: if isProjectOwner(projectId)
+          || (
+            isRoomMember(projectId, roomId)
+            && request.resource.data.diff(resource.data).changedKeys().hasOnly([
+              "updatedAt",
+              "lastMessageText",
+              "lastMessageSenderId",
+              "lastMessageAt",
+              "isArchived",
+              "archivedAt"
+            ])
+            && request.resource.data.projectId == resource.data.projectId
+            && request.resource.data.name == resource.data.name
+            && request.resource.data.createdBy == resource.data.createdBy
+            && request.resource.data.memberIds == resource.data.memberIds
+            && request.resource.data.memberSummaries == resource.data.memberSummaries
+          );
+
+        allow delete: if isProjectOwner(projectId);
+
+        match /messages/{messageId} {
+          allow read: if isRoomMember(projectId, roomId);
+          allow create: if isRoomMember(projectId, roomId)
+            && request.resource.data.senderId == userId();
+          allow update, delete: if isRoomMember(projectId, roomId)
+            && resource.data.senderId == userId();
+        }
+
+        match /pinnedMessages/{messageId} {
+          allow read, create, update, delete: if isRoomMember(projectId, roomId);
+        }
+
+        match /keywordMatches/{matchId} {
+          allow read, create, update, delete: if isRoomMember(projectId, roomId);
+        }
+      }
+    }
+
+    match /projectArchives/{archiveId} {
+      allow create: if isActivePortalMember()
+        && request.resource.data.ownerId == userId()
+        && request.resource.data.memberIds is list
+        && userId() in request.resource.data.memberIds;
+
+      allow read: if isArchiveMember();
+
+      allow update: if isArchiveMember()
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly([
+          "summary",
+          "memberIds",
+          "resourceLinks",
+          "name",
+          "updatedAt",
+          "notionProjectId",
+          "notionProjectTitle",
+          "notionProjectURL",
+          "chatProjectId",
+          "googleDriveRootFolderId",
+          "googleDriveRootTitle",
+          "googleDriveRootWebURL",
+          "dropboxRootPath",
+          "dropboxRootTitle",
+          "dropboxRootWebURL",
+          "storageTemplateVersion",
+          "storageFolders",
+          "projectCode",
+          "uploadNamingDefaults",
+          "savedWorkGroups"
+        ]);
+
+      allow delete: if signedIn()
+        && resource.data.ownerId == userId();
+    }
+
+    match /projectArchiveJobs/{jobId} {
+      allow create: if isActivePortalMember()
+        && request.resource.data.requestedById == userId()
+        && request.resource.data.type in [
+          "validateGoogleDriveAdmin",
+          "validateDropboxAdmin",
+          "provisionGoogleDriveFolders",
+          "provisionDropboxFolders",
+          "deleteGoogleDriveFolders",
+          "deleteDropboxFolders",
+          "listGoogleDriveFolderContents",
+          "listDropboxFolderContents",
+          "createGoogleDriveUploadSession",
+          "createDropboxUploadSession"
+        ];
+      allow read: if isActivePortalMember() && resource.data.requestedById == userId();
+      allow update, delete: if false;
+    }
+
+    match /portalSettings/{documentId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isPortalAdmin();
+    }
+  }
+}

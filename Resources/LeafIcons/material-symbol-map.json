@@ -1,0 +1,135 @@
+{
+  "source": {
+    "htmlFile": "/Users/sangjoonpark/Downloads/stitch (2)/code.html",
+    "library": "Material Symbols Outlined"
+  },
+  "icons": [
+    {
+      "slug": "observation",
+      "title": "Observation",
+      "ligature": "visibility",
+      "sourceType": "downloaded",
+      "svgFile": "svg/observation.svg"
+    },
+    {
+      "slug": "path",
+      "title": "Path",
+      "ligature": "route",
+      "sourceType": "downloaded",
+      "svgFile": "svg/path.svg"
+    },
+    {
+      "slug": "discovery",
+      "title": "Discovery",
+      "ligature": "search_insights",
+      "sourceType": "reconstructed",
+      "svgFile": "svg/discovery.svg"
+    },
+    {
+      "slug": "seedling",
+      "title": "Seedling",
+      "ligature": "potted_plant",
+      "sourceType": "reconstructed",
+      "svgFile": "svg/seedling.svg"
+    },
+    {
+      "slug": "compass",
+      "title": "Compass",
+      "ligature": "explore",
+      "sourceType": "downloaded",
+      "svgFile": "svg/compass.svg"
+    },
+    {
+      "slug": "lantern",
+      "title": "Lantern",
+      "ligature": "light",
+      "sourceType": "downloaded",
+      "svgFile": "svg/lantern.svg"
+    },
+    {
+      "slug": "footprints",
+      "title": "Footprints",
+      "ligature": "footprint",
+      "sourceType": "reconstructed",
+      "svgFile": "svg/footprints.svg"
+    },
+    {
+      "slug": "alert",
+      "title": "Alert",
+      "ligature": "eco",
+      "sourceType": "downloaded",
+      "svgFile": "svg/alert.svg"
+    },
+    {
+      "slug": "ancient-tree",
+      "title": "Ancient Tree",
+      "ligature": "forest",
+      "sourceType": "downloaded",
+      "svgFile": "svg/ancient-tree.svg"
+    },
+    {
+      "slug": "pebble",
+      "title": "Pebble",
+      "ligature": "adjust",
+      "sourceType": "downloaded",
+      "svgFile": "svg/pebble.svg"
+    },
+    {
+      "slug": "wind",
+      "title": "Wind",
+      "ligature": "air",
+      "sourceType": "downloaded",
+      "svgFile": "svg/wind.svg"
+    },
+    {
+      "slug": "park-bench",
+      "title": "Park Bench",
+      "ligature": "chair_alt",
+      "sourceType": "downloaded",
+      "svgFile": "svg/park-bench.svg"
+    },
+    {
+      "slug": "binoculars",
+      "title": "Binoculars",
+      "ligature": "biotech",
+      "sourceType": "downloaded",
+      "svgFile": "svg/binoculars.svg"
+    },
+    {
+      "slug": "open-gate",
+      "title": "Open Gate",
+      "ligature": "sensor_door",
+      "sourceType": "downloaded",
+      "svgFile": "svg/open-gate.svg"
+    },
+    {
+      "slug": "workspace",
+      "title": "Workspace",
+      "ligature": "landscape",
+      "sourceType": "downloaded",
+      "svgFile": "svg/workspace.svg"
+    },
+    {
+      "slug": "progress",
+      "title": "Progress",
+      "ligature": "hiking",
+      "sourceType": "downloaded",
+      "svgFile": "svg/progress.svg"
+    },
+    {
+      "slug": "growth",
+      "title": "Growth",
+      "ligature": "spa",
+      "sourceType": "downloaded",
+      "svgFile": "svg/growth.svg"
+    },
+    {
+      "slug": "flow",
+      "title": "Flow",
+      "ligature": "water_drop",
+      "sourceType": "downloaded",
+      "svgFile": "svg/flow.svg"
+    }
+  ]
+}
+

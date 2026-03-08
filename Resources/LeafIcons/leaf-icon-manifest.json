@@ -1,0 +1,166 @@
+{
+  "source": {
+    "fileName": "LEAF Portal",
+    "fileKey": "MH614VTJPSAtcP4cMcZhBZ",
+    "rootNodeId": "0:1",
+    "url": "https://www.figma.com/design/MH614VTJPSAtcP4cMcZhBZ/LEAF-Portal?node-id=0-1&p=f&t=vGrqcGQCoKV0FQUw-0"
+  },
+  "spec": {
+    "format": "SVG",
+    "canvas": "24x24",
+    "safeArea": "2px",
+    "strokeWidth": "1.5pt",
+    "cornerRadius": [
+      "2px",
+      "4px"
+    ],
+    "gapStrategy": "2px"
+  },
+  "palette": {
+    "primaryActive": "#17CF54",
+    "studioDepth": "#0D1A12",
+    "mutedGlyph": "#94A3B8"
+  },
+  "exportStatus": {
+    "state": "pending",
+    "reason": "Figma MCP quota exceeded and direct asset URLs returned 404 outside MCP",
+    "outputDirectory": "Resources/LeafIcons/svg"
+  },
+  "icons": [
+    {
+      "slug": "leaf-logo",
+      "name": "Leaf Logo",
+      "role": "브랜드 코어",
+      "usage": "앱 타이틀, 브랜드 마크, 런치/헤더",
+      "nodeId": "3:455",
+      "containerNodeId": "3:454"
+    },
+    {
+      "slug": "footprints",
+      "name": "Footprints",
+      "role": "기록",
+      "usage": "로그, 활동 이력, 렌더 히스토리",
+      "nodeId": "3:524",
+      "containerNodeId": "3:518",
+      "semanticText": "History = Log"
+    },
+    {
+      "slug": "lantern",
+      "name": "Lantern",
+      "role": "집중 상태",
+      "usage": "활성 세션, 현재 감시 중 상태",
+      "nodeId": "3:535",
+      "containerNodeId": "3:529",
+      "semanticText": "Active Focus"
+    },
+    {
+      "slug": "compass",
+      "name": "Compass",
+      "role": "가이드",
+      "usage": "내비게이션, 설정 유도, 안내",
+      "nodeId": "3:546",
+      "containerNodeId": "3:540",
+      "semanticText": "Navigation = Guide"
+    },
+    {
+      "slug": "seedling",
+      "name": "Seedling",
+      "role": "새 작업",
+      "usage": "새 감시 시작, 새 항목 추가",
+      "nodeId": "3:557",
+      "containerNodeId": "3:551",
+      "semanticText": "New Task = Growth"
+    },
+    {
+      "slug": "ancient-tree",
+      "name": "Ancient Tree",
+      "role": "보관",
+      "usage": "아카이브, 오래된 로그, 저장소",
+      "nodeId": "3:568",
+      "containerNodeId": "3:562",
+      "semanticText": "Archive = Root"
+    },
+    {
+      "slug": "pebble",
+      "name": "Pebble",
+      "role": "약한 경고",
+      "usage": "경미한 경고, 인라인 주의, 설정 누락",
+      "nodeId": "3:579",
+      "containerNodeId": "3:573",
+      "semanticText": "Minor Alert"
+    },
+    {
+      "slug": "wind",
+      "name": "Wind",
+      "role": "동기화 흐름",
+      "usage": "감시 진행, 백그라운드 동작, 흐름 표시",
+      "nodeId": "3:590",
+      "containerNodeId": "3:584",
+      "semanticText": "Syncing = Flow"
+    },
+    {
+      "slug": "park-bench",
+      "name": "Park Bench",
+      "role": "대기/휴식",
+      "usage": "일시정지, 유휴 상태, 휴면 화면",
+      "nodeId": "3:601",
+      "containerNodeId": "3:595",
+      "semanticText": "Pause = Rest"
+    },
+    {
+      "slug": "binoculars",
+      "name": "Binoculars",
+      "role": "검토",
+      "usage": "상세 확인, 미리보기, 검수",
+      "nodeId": "3:612",
+      "containerNodeId": "3:606",
+      "semanticText": "Inspect = View"
+    },
+    {
+      "slug": "open-gate",
+      "name": "Open Gate",
+      "role": "출력",
+      "usage": "내보내기, 결과물, 완료된 렌더",
+      "nodeId": "3:623",
+      "containerNodeId": "3:617",
+      "semanticText": "Export = Output"
+    },
+    {
+      "slug": "observation",
+      "name": "Observation",
+      "role": "감시",
+      "usage": "Render Noti 감시 상태, 워처 시작, 추적",
+      "nodeId": "3:634",
+      "containerNodeId": "3:628",
+      "semanticText": "Watching = View"
+    },
+    {
+      "slug": "path",
+      "name": "Path",
+      "role": "경로",
+      "usage": "폴더 선택, 파일 대상, Finder 브라우즈",
+      "nodeId": "3:645",
+      "containerNodeId": "3:639",
+      "semanticText": "Folder = Trail"
+    },
+    {
+      "slug": "alert",
+      "name": "Alert",
+      "role": "알림",
+      "usage": "렌더 완료 알림, 중요 상태 변화, 실패 통지",
+      "nodeId": "3:656",
+      "containerNodeId": "3:650",
+      "semanticText": "Notification = Flutter"
+    },
+    {
+      "slug": "flow",
+      "name": "Flow",
+      "role": "활동 스트림",
+      "usage": "실시간 상태, 프로세스 흐름, 활동 피드",
+      "nodeId": "3:667",
+      "containerNodeId": "3:661",
+      "semanticText": "Activity = Stream"
+    }
+  ]
+}
+

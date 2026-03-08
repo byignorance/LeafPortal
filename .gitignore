@@ -1,0 +1,21 @@
+.DS_Store
+.env.local
+
+# Xcode user-specific files
+xcuserdata/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# Build outputs
+build/
+DerivedData/
+
+# SwiftPM
+.build/
+
+# Firebase Functions
+functions/node_modules/
+functions/lib/
+
+# App archives
+*.xcarchive
